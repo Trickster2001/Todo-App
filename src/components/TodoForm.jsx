@@ -9,7 +9,7 @@ const TodoForm = () => {
 
   const add = (e) => {
     e.preventDefault();
-
+    // nothing much just passing arguments to addTodo function
     addTodo({todo:todo, completed:false})
     setTodo("");
   }

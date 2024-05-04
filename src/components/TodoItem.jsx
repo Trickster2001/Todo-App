@@ -8,17 +8,21 @@ const TodoItem = ({todo}) => {
 
   const {updateTodo, deleteTodo, toggleComplete} = useTodo();
 
+  // updating the todo by giving the todo id from the prop and todoMsg from state
   const editTodo = () => {
     updateTodo(todo.id, {...todo, todo:todoMsg});
     setIsTodoEdit(false);
   }
 
+  // just toggling
   const toggle = () => {
     toggleComplete(todo.id);
   }
 
+  // using useRef hook
   const inputRef = useRef(null);
 
+  // using useRef to focus and select the proper input
   useEffect(()=>{
     if(isTodoEdit && inputRef.current) {
       inputRef.current.focus();

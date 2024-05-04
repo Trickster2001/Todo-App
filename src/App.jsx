@@ -5,24 +5,30 @@ import TodoItem from './components/TodoItem';
 
 const App = () => {
 
+  // created a state for storing all the todos
   const [todos, setTodos] = useState([]);
 
+  // created function to add todo which takes todo (object) as parameter
   const addTodo = (todo) => {
     setTodos((prev) => [{id: Date.now(), ...todo}, ...prev]);
   }
 
+  // created function to update todo which takes todo id and todo itself
   const updateTodo = (id, todo) => {
     setTodos((prev) => prev.map((eachTodo) => (eachTodo.id === id ? todo : eachTodo)))
   }
 
+  // created function to delete todo which takes todo id
   const deleteTodo = (id) => {
     setTodos((prev) => prev.filter((eachTodo) => (eachTodo.id !== id) ))
   }
 
+  // created function to toggle the status of todo(completed or not)
   const toggleComplete = (id) => {
     setTodos((prev) => prev.map((eachTodo) => (eachTodo.id === id ? {...eachTodo, completed: !eachTodo.completed} : eachTodo)))
   }
 
+  // getting todos from local storage
   useEffect(()=>{
     const myTodos = JSON.parse(localStorage.getItem("todos"));
 
@@ -31,6 +37,7 @@ const App = () => {
     }
   },[])
 
+  // setting todos to local storage
   useEffect(()=>{
     localStorage.setItem("todos", JSON.stringify(todos))
   },[todos])
@@ -47,6 +54,7 @@ const App = () => {
           </div>
           <div className='flex flex-wrap gap-y-3'>
             {/* Todo list here  */}
+            {/* looping over the todos array */}
             {todos.map((todo)=>(
               <div key={todo.id} className='w-full'>
                 <TodoItem todo={todo} />

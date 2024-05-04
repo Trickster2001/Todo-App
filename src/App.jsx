@@ -1,9 +1,10 @@
 import React from 'react'
+import { TodoProvider } from './components/TodoContext'
 
 const App = () => {
   return (
     <>
-    <div>Hello World!</div>
+    <TodoProvider value={{todos, addTodo, updateTodo, deleteTodo, toggleComplete}}>Hello World!</TodoProvider>
     </>
   )
 }

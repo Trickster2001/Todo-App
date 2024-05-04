@@ -1,4 +1,4 @@
-import React, { useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useTodo } from '../context/TodoContext'
 
 const TodoItem = ({todo}) => {
@@ -17,13 +17,22 @@ const TodoItem = ({todo}) => {
     toggleComplete(todo.id);
   }
 
+  const inputRef = useRef(null);
+
+  useEffect(()=>{
+    if(isTodoEdit && inputRef.current) {
+      inputRef.current.focus();
+      inputRef.current.select();
+    }
+  },[isTodoEdit])
+
   return (
     <div className={`flex border border-black/10 rounded-lg px-3 py-1.5 gap-x-3 text-black ${todo.completed ? "bg-[#c6a9a7]" : "bg-[#ccbed7]"}`}>
       <input type="checkbox"
       className='cursor-pointer'
       checked={todo.completed}
       onChange={toggle} />
-      <input type="text"
+      <input ref={inputRef} type="text"
       className={`border outline-none w-full bg-transparent rounded-lg ${isTodoEdit ? "border-black/10 px-2" : "border-transparent"} ${todo.completed ? "line-through" : ""}`}
       value={todoMsg}
       onChange={(e)=>setTodoMsg(e.target.value)}
